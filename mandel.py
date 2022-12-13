@@ -13,9 +13,11 @@ class C:
         self.r = r
         self.i = i
     def __mul__(self, other):
-        return C(self.r * other.r - self.i*other.i, self.r * other.i + self.i * other.r)
+        self.r, self.i = self.r * other.r - self.i*other.i, self.r * other.i + self.i * other.r 
+        #return C(self.r * other.r - self.i*other.i, self.r * other.i + self.i * other.r) # v inych pripadoch sa viac hodi toto
     def __add__(self, other):
-        return C(self.r + other.r, self.i + other.i)
+        self.r, self.i = self.r + other.r, self.i + other.i
+        #return C(self.r + other.r, self.i + other.i) # v inych pripadoch sa viac hodi toto
     def __str__(self):
         return f"{self.r} + {self.i}i"
     def __abs__(self):
@@ -29,16 +31,16 @@ def mandelbrot_set(depth):
             f = 1
             mp = dict()
             for n in range(1, depth+1):
-                znj = (zn*zn) + ot
-                key = str(znj.r) + ";" + str(znj.i)
+                zn*zn
+                zn + ot
+                key = str(zn.r) + ";" + str(zn.i)
                 if (key in mp):
                     f = depth+1
                     break
-                if abs(znj) > 2:
+                if abs(zn) > 2:
                     break
                 mp[key] = 1
                 f += 1
-                zn = znj
             if f == depth+1:
                 c.create_rectangle(i, j, i+1, j+1)
                 c.create_rectangle(i, h - j, i+1, h + 1-j)
