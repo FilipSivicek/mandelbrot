@@ -1,5 +1,6 @@
 from tkinter import Canvas
 import math
+import time
 
 w = 1200
 h = 1200
@@ -23,13 +24,19 @@ class C:
 def mandelbrot_set(depth):
     for i in range(w):
         for j in range(h//2+1):
-            ot = C((i-w/2)/(w/4), (j-(h/2))/(h/4))
+            ot = C(4*i/w - 2, 4*j/h - 2)
             zn = C(0, 0)
             f = 1
+            mp = dict()
             for n in range(1, depth+1):
                 znj = (zn*zn) + ot
+                key = str(znj.r) + ";" + str(znj.i)
+                if (key in mp):
+                    f = depth+1
+                    break
                 if abs(znj) > 2:
                     break
+                mp[key] = 1
                 f += 1
                 zn = znj
             if f == depth+1:
@@ -41,4 +48,5 @@ def mandelbrot_set(depth):
                 c.create_rectangle(i, h - j, i+1, h + 1-j, outline = f'#{farb:06x}')
 
 mandelbrot_set(160)
+print(time.time())
 c.mainloop()
