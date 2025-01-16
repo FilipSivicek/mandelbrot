@@ -12,19 +12,21 @@ class C:
     def __init__(self, r, i):
         self.r = r
         self.i = i
-
+    
     def __mul__(self, other):
         return C(self.r * other.r - self.i * other.i, self.r * other.i + self.i * other.r)
 
     def __add__(self, other):
         return C(self.r + other.r, self.i + other.i)
 
+    def __sub__(self, other):
+        return C(self.r - other.r, self.i - other.i)
+
     def __abs__(self):
         return math.sqrt(self.r**2 + self.i**2)
 
     def __str__(self):
         return f"{self.r} + {self.i}i"
-    
     
 def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
     for i in range(w):
@@ -34,8 +36,7 @@ def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
             f = 1
             mp = dict()
             for n in range(1, depth + 1):
-                zn = zn * zn
-                zn = zn + ot
+                zn = zn * zn + ot
                 key = 1201 * zn.r + zn.i
                 if (key in mp):
                     f = depth + 1
@@ -50,6 +51,6 @@ def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
                 colour = ((f+2)**7) % (2**24)
                 canvas.create_rectangle(i, j, i + 1, j + 1, outline = f'#{colour:06x}')
 
-mandelbrot_set(160, -2, 4, -2, 4)
+mandelbrot_set(30, -2, 4, -2, 4)
 print(time.time())
 canvas.mainloop()
