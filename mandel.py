@@ -2,8 +2,8 @@ from tkinter import Canvas
 import math
 import time
 
-w = 1200
-h = 1200
+w = 1500
+h = 1500
 
 canvas = Canvas(width = w, height = h, background= f'#{2**24 - 13 * 2**9:06x}')
 canvas.pack()
@@ -28,7 +28,7 @@ class C:
     def __str__(self):
         return f"{self.r} + {self.i}i"
     
-def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
+def mandelbrot_set(depth, xstart = -2, xrange = 2.5, ystart = -1.25, yrange = 2.5):
     for i in range(w):
         for j in range(h + 1):
             ot = C(xrange * i / w + xstart, yrange * j / h + ystart)
@@ -51,6 +51,6 @@ def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
                 colour = ((f+2)**7) % (2**24)
                 canvas.create_rectangle(i, j, i + 1, j + 1, outline = f'#{colour:06x}')
 
-mandelbrot_set(30, -2, 4, -2, 4)
+mandelbrot_set(30, -2, 2.5, -1.25, 2.5)
 print(time.time())
 canvas.mainloop()
