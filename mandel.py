@@ -26,10 +26,10 @@ class C:
         return f"{self.r} + {self.i}i"
     
     
-def mandelbrot_set(depth):
+def mandelbrot_set(depth, xstart = -2, xrange = 4, ystart = -2, yrange = 4):
     for i in range(w):
-        for j in range(h // 2 + 1):
-            ot = C(4 * i / w - 2, 4 * j / h - 2)
+        for j in range(h + 1):
+            ot = C(xrange * i / w + xstart, yrange * j / h + ystart)
             zn = C(0, 0)
             f = 1
             mp = dict()
@@ -46,12 +46,10 @@ def mandelbrot_set(depth):
                 f += 1
             if f == depth + 1:
                 canvas.create_rectangle(i, j, i + 1, j + 1)
-                canvas.create_rectangle(i, h - j, i + 1, h + 1 - j)
             else:
                 colour = ((f+2)**7) % (2**24)
                 canvas.create_rectangle(i, j, i + 1, j + 1, outline = f'#{colour:06x}')
-                canvas.create_rectangle(i, h - j, i + 1, h + 1 - j, outline = f'#{colour:06x}')
 
-mandelbrot_set(80)
+mandelbrot_set(160, -2, 4, -2, 4)
 print(time.time())
 canvas.mainloop()
