@@ -16,6 +16,12 @@ class C:
     def __mul__(self, other):
         return C(self.r * other.r - self.i * other.i, self.r * other.i + self.i * other.r)
 
+    def __div__(self, other):
+        real_part = self.r * other.r + self.i * other.i
+        imaginary_part = self.i * other.r - self.r * other.i
+        denumerator = other.r ** 2 + other.i ** 2
+        return C(real_part / denumerator, imaginary_part / denumerator)
+
     def __add__(self, other):
         return C(self.r + other.r, self.i + other.i)
 
